@@ -1,0 +1,70 @@
+#########start############
+#http://zhongyaonan.com/hadoop-tutorial/setting-up-hadoop-2-6-on-mac-osx-yosemite.html
+
+cd /usr/local/Cellar/hadoop-2.6.5/
+sbin/start-dfs.sh
+sbin/start-yarn.sh
+
+#source
+source ~/.bashrc
+
+#fail to write to hive
+hadoop dfs -chmod 777 /tmp/
+hadoop dfs -chmod 777 /tmp/hive/
+
+#start hive metastore
+hive --service metastore
+
+# run consumer
+spark-submit --jars /usr/local/Cellar/kafka/1.1.0/libexec/libs/spark-streaming-kafka-assembly_2.11-1.6.1.jar /Users/sunling/MUM/BDT/project/BGFacebook/BGConsumer.py
+
+# run producer
+python /Users/sunling/MUM/BDT/project/BGFacebook/BGProducer.py
+
+###########end###############
+#if failed to start hive
+#login mysql as root
+SET GLOBAL time_zone = '+3:00';
+
+source /usr/local/Cellar/hive/2.3.1/libexec/scripts/metastore/upgrade/mysql/hive-schema-2.3.0.mysql.sql ;
+
+source /usr/local/Cellar/hive/2.3.1/libexec/scripts/metastore/upgrade/mysql/hive-txn-schema-2.3.0.mysql.sql ;
+
+source /usr/local/Cellar/hive/2.3.1/libexec/scripts/metastore/upgrade/mysql/upgrade-2.2.0-to-2.3.0.mysql.sql ;
+
+#stop hadoop
+cd /usr/local/Cellar/hadoop-2.6.5/
+sbin/stop-yarn.sh
+sbin/stop-dfs.sh
+
+$ sudo cp mysql-connector-java-5.1.35/mysql-connector-java-5.1.35-bin.jar /usr/local/Cellar/hive/2.3.1/libexec/lib/
+
+#create a topic
+bash /usr/local/Cellar/kafka/1.1.0/bin/kafka-topics --create --zookeeper localhost: 9092 --replication-factor 1 --partitions 1 --topic bgposts
+
+#read
+/usr/local/Cellar/kafka/1.1.0/bin/kafka-console-consumer --bootstrap-server localhost: 9092 --topic bgposts
+
+#write
+/usr/local/Cellar/kafka/1.1.0/bin/kafka-console-producer --broker-list localhost:9092 --topic bgposts
+
+#install python libs :kafka,facebook,pyspark,plotly,....
+
+#copy jars to kafka
+cp /Users/sunling/MUM/BDT/project/spark-streaming-kafka-assembly_2.11-1.6.1.jar /usr/local/Cellar/kafka/1.1.0/libexec/libs/
+
+#failed to start hive 
+hadoop dfs -chmod 777 /tmp/hive/
+
+
+#
+SOURCE /usr/local/Cellar/hive/2.3.1/libexec/scripts/metastore//upgrade/mysql/hive-**
+schema-0.**10.0.mysql.sql
+
+#check post is used in which process
+lsof -i :9000
+
+
+#get access token 
+https://developers.facebook.com/tools/explorer
+

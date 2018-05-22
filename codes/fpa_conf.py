@@ -1,0 +1,7 @@
+token = "EAACEdEose0cBADPyx2xkcgpbhbzmY4r4GAtjFtdspzoWWY68IUUfFqkWlHa5ZCDBT8NM3MGY13hpZCnn6V9ONJYZAe3cY7zXZBKhz5G7H43H4wCX4jzSLdfXW3xpxIxUsHTF9QYZBTfiCeBB2nuS61vzxzCRYk2qBTcktdyQn5EmPX1HbRl2o4TXScXPSnmEL6oNQmdInhQZDZD"
+
+user = "me"
+
+topic = "bgposts"
+
+brokers = 'localhost:9092'

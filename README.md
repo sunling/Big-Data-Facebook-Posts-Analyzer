@@ -1,4 +1,4 @@
-# CS523-BDT-Project
+# Facebook Posts Analyzer
 # Facebook Posts Analysis - inspirations
 -For a single account, What the most common words used in all of the posts</br>
 -For a single account, how many posts posted each year?</br>

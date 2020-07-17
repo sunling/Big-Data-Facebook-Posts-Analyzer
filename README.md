@@ -32,7 +32,7 @@ pip install kafka</br>
 -Using Spark SQL to query and analysis</br>
 -Using Plotly to visualize data</br>
 
-# How it work
+# How does it work
 1.Firstly, you need to be sure all the components are correctly installed and started, mainly focus on kafka and hive.</br>
 -Try to create a topic to test if kafka is working </br>
 #create a topic</br>
